@@ -193,6 +193,7 @@ public class Dungeon {
 	//first variable is only assigned when game is started, second is updated every time game is saved
 	public static int initialVersion;
 	public static int version;
+	public static boolean rickroll=false;
 
 	public static boolean daily;
 	public static boolean dailyReplay;
@@ -524,6 +525,7 @@ public class Dungeon {
 	private static final String CHALLENGES	= "challenges";
 	private static final String MOBS_TO_CHAMPION	= "mobs_to_champion";
 	private static final String HERO		= "hero";
+	public static final String RICKROLL= "rickroll";
 	private static final String DEPTH		= "depth";
 	private static final String BRANCH		= "branch";
 	private static final String GOLD		= "gold";
@@ -539,7 +541,7 @@ public class Dungeon {
 	public static void saveGame( int save ) {
 		try {
 			Bundle bundle = new Bundle();
-
+			bundle.put(RICKROLL,rickroll);
 			bundle.put( INIT_VER, initialVersion );
 			bundle.put( VERSION, version = Game.versionCode );
 			bundle.put( SEED, seed );

@@ -44,12 +44,7 @@ public enum Music {
 	float[] trackChances;
 	private final ArrayList<String> trackQueue = new ArrayList<>();
 	boolean shuffle = false;
-	public static boolean rickroll=false;
-	
 	public synchronized void play( String assetName, boolean looping ) {
-		if (Music.rickroll){
-			assetName ="music/never_gonna_give_you_up.mp3";
-		}
 
 		//iOS cannot play ogg, so we use an mp3 alternative instead
 		if (assetName != null && DeviceCompat.isiOS()){

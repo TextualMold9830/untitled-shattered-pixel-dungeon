@@ -21,6 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.scenes;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.rickroll;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
@@ -126,6 +128,7 @@ import com.watabou.noosa.NoosaScript;
 import com.watabou.noosa.NoosaScriptNoLighting;
 import com.watabou.noosa.SkinnedBlock;
 import com.watabou.noosa.Visual;
+import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.tweeners.Tweener;
@@ -204,9 +207,9 @@ public class GameScene extends PixelScene {
 			ShatteredPixelDungeon.switchNoFade(TitleScene.class);
 			return;
 		}
-
-		Dungeon.level.playLevelMusic();
-
+		if (!rickroll) {
+			Dungeon.level.playLevelMusic();
+		}else Music.INSTANCE.play(Assets.Music.NEVER_GONNA_GIVE_YOU_UP,true);
 		SPDSettings.lastClass(Dungeon.hero.heroClass.ordinal());
 		
 		super.create();

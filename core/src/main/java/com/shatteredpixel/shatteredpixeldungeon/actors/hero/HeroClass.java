@@ -59,6 +59,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dagger;
@@ -85,9 +86,10 @@ public enum HeroClass {
 	}
 
 	public void initHero( Hero hero ) {
-		new ReactivePotion().identify();
+		new ReactivePotion().identify(true);
 		hero.heroClass = this;
 		if (DeviceCompat.isDebug()){
+			new ScrollOfForesight().identify().collect();
 			new ArtifactHolder().collect();
 			HornOfPlenty horn = new HornOfPlenty();
 			horn.level(10);
@@ -115,7 +117,6 @@ public enum HeroClass {
 			case WARRIOR:
 				initWarrior( hero );
 				break;
-
 			case MAGE:
 				initMage( hero );
 				break;
@@ -186,9 +187,10 @@ public enum HeroClass {
 		(hero.belongings.artifact = new AlchemistsToolkit()).identify();
 		hero.belongings.artifact.activate( hero );
 		hero.belongings.artifact.isInBag=false;
-		new ReactivePotion().quantity(5).collect();
-		new PotionOfHealing().identify();
+		new ReactivePotion().quantity(5).identify().collect();
+		new PotionOfHealing().identify(true);
 		new PotionOfLiquidFlame().identify();
+		Dungeon.quickslot.setSlot(2, hero.belongings.artifact);
 	}
 
 	private static void initRogue( Hero hero ) {

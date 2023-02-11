@@ -3,6 +3,7 @@ package com.shatteredpixel.shatteredpixeldungeon.levels.traps;
 import com.badlogic.gdx.Gdx;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -30,8 +31,9 @@ public class HealingTrap extends Trap {
                     if (ch instanceof Hero) {
                         if (Dungeon.level.distance(Dungeon.hero.pos, pos) <= 1){
                             Music.INSTANCE.stop();
-                            Music.rickroll=true;
-                            Music.INSTANCE.play(Assets.Music.NEVER_GONNA_GIVE_YOU_UP,true);
+                            Dungeon.rickroll = true;
+                            SPDSettings.music(true);
+                            SPDSettings.soundFx(true);
                             try {
                                 Dungeon.saveAll();
                             } catch (IOException e) {

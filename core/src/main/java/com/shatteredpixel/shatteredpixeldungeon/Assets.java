@@ -22,7 +22,6 @@
 package com.shatteredpixel.shatteredpixeldungeon;
 
 public class Assets {
-
 	public static class Effects {
 		public static final String EFFECTS      = "effects/effects.png";
 		public static final String FIREBALL     = "effects/fireball.png";
@@ -217,7 +216,7 @@ public class Assets {
 				HIT_ARROW, ATK_SPIRITBOW, ATK_CROSSBOW, HEALTH_WARN, HEALTH_CRITICAL,
 
 				DESCEND, EAT, READ, LULLABY, DRINK, SHATTER, ZAP, LIGHTNING, LEVELUP, DEATH,
-				CHALLENGE, CURSED, TRAP, EVOKE, TOMB, ALERT, MELD, BOSS, BLAST, PLANT, RAY, BEACON,
+				CHALLENGE, CURSED, TRAP,NVR_GNA_LYD, EVOKE, TOMB, ALERT, MELD, BOSS, BLAST, PLANT, RAY, BEACON,
 				TELEPORT, CHARMS, MASTERY, PUFF, ROCKS, BURNING, FALLING, GHOST, SECRET, BONES,
 				BEE, DEGRADE, MIMIC, DEBUFF, CHARGEUP, GAS, CHAINS, SCAN, SHEEP
 		};

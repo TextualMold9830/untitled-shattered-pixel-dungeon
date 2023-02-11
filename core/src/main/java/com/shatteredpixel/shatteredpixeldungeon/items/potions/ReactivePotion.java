@@ -27,6 +27,7 @@ public class ReactivePotion extends Potion {
 
     @Override
     protected void drink(Hero hero) {
+        super.drink(hero);
         Buff.affect(hero, Healing.class).setHeal(Math.round( 5+hero.HT/10f), 0, 1);
         if (Random.Int(1,100)==1){
             try {
