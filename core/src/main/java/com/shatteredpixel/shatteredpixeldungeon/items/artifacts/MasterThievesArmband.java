@@ -39,22 +39,19 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Surprise;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
-import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
-import com.shatteredpixel.shatteredpixeldungeon.utils.BArray;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
-import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class MasterThievesArmband extends Artifact {
+public class MasterThievesArmband extends com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact {
 
 	{
 		image = ItemSpriteSheet.ARTIFACT_ARMBAND;
@@ -280,7 +277,7 @@ public class MasterThievesArmband extends Artifact {
 				float chargeGain = 3f * levelPortion;
 				chargeGain *= RingOfEnergy.artifactChargeMultiplier(target);
 
-				partialCharge += chargeGain;
+				partialCharge +=chargeCalc(chargeGain);
 				while (partialCharge > 1f){
 					partialCharge--;
 					charge++;

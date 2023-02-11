@@ -153,11 +153,16 @@ public enum Talent {
 		public int icon() { return BuffIndicator.TIME; }
 		public void tintIcon(Image icon) { icon.hardlight(0.15f, 0.2f, 0.5f); }
 		public float iconFadePercent() { return Math.max(0, visualcooldown() / 50); }
-	};
-	public static class LethalMomentumTracker extends FlavourBuff{};
-	public static class StrikingWaveTracker extends FlavourBuff{};
-	public static class WandPreservationCounter extends CounterBuff{{revivePersists = true;}};
-	public static class EmpoweredStrikeTracker extends FlavourBuff{};
+	}
+
+	public static class LethalMomentumTracker extends FlavourBuff{}
+
+	public static class StrikingWaveTracker extends FlavourBuff{}
+
+	public static class WandPreservationCounter extends CounterBuff{{revivePersists = true;}}
+
+	public static class EmpoweredStrikeTracker extends FlavourBuff{}
+
 	public static class ProtectiveShadowsTracker extends Buff {
 		float barrierInc = 0.5f;
 
@@ -195,25 +200,29 @@ public enum Talent {
 			barrierInc = bundle.getFloat( BARRIER_INC );
 		}
 	}
-	public static class BountyHunterTracker extends FlavourBuff{};
+	public static class BountyHunterTracker extends FlavourBuff{}
+
 	public static class RejuvenatingStepsCooldown extends FlavourBuff{
 		public int icon() { return BuffIndicator.TIME; }
 		public void tintIcon(Image icon) { icon.hardlight(0f, 0.35f, 0.15f); }
 		public float iconFadePercent() { return GameMath.gate(0, visualcooldown() / (15 - 5*Dungeon.hero.pointsInTalent(REJUVENATING_STEPS)), 1); }
-	};
-	public static class RejuvenatingStepsFurrow extends CounterBuff{{revivePersists = true;}};
+	}
+
+	public static class RejuvenatingStepsFurrow extends CounterBuff{{revivePersists = true;}}
+
 	public static class SeerShotCooldown extends FlavourBuff{
 		public int icon() { return target.buff(RevealedArea.class) != null ? BuffIndicator.NONE : BuffIndicator.TIME; }
 		public void tintIcon(Image icon) { icon.hardlight(0.7f, 0.4f, 0.7f); }
 		public float iconFadePercent() { return Math.max(0, visualcooldown() / 20); }
-	};
-	public static class SpiritBladesTracker extends FlavourBuff{};
+	}
 
-	int icon;
-	int maxPoints;
+	public static class SpiritBladesTracker extends FlavourBuff{}
+
+	final int icon;
+	final int maxPoints;
 
 	// tiers 1/2/3/4 start at levels 2/7/13/21
-	public static int[] tierLevelThresholds = new int[]{0, 2, 7, 13, 21, 31};
+	public static final int[] tierLevelThresholds = new int[]{0, 2, 7, 13, 21, 31};
 
 	Talent( int icon ){
 		this(icon, 2);
@@ -239,6 +248,8 @@ public enum Talent {
 					return 90;
 				case HUNTRESS:
 					return 122;
+				case POTIONMASTER:
+					return 127;
 			}
 		} else {
 			return icon;
@@ -281,7 +292,7 @@ public enum Talent {
 			if (hero.belongings.armor() != null)  hero.belongings.armor.identify();
 		}
 		if (talent == THIEFS_INTUITION && hero.pointsInTalent(THIEFS_INTUITION) == 2){
-			if (hero.belongings.ring instanceof Ring) hero.belongings.ring.identify();
+			if (hero.belongings.ring != null) hero.belongings.ring.identify();
 			if (hero.belongings.misc instanceof Ring) hero.belongings.misc.identify();
 			for (Item item : Dungeon.hero.belongings){
 				if (item instanceof Ring){
@@ -290,7 +301,7 @@ public enum Talent {
 			}
 		}
 		if (talent == THIEFS_INTUITION && hero.pointsInTalent(THIEFS_INTUITION) == 1){
-			if (hero.belongings.ring instanceof Ring) hero.belongings.ring.setKnown();
+			if (hero.belongings.ring != null) hero.belongings.ring.setKnown();
 			if (hero.belongings.misc instanceof Ring) ((Ring) hero.belongings.misc).setKnown();
 		}
 
@@ -309,11 +320,12 @@ public enum Talent {
 		}
 	}
 
-	public static class CachedRationsDropped extends CounterBuff{{revivePersists = true;}};
-	public static class NatureBerriesAvailable extends CounterBuff{{revivePersists = true;}}; //for pre-1.3.0 saves
-	public static class NatureBerriesDropped extends CounterBuff{{revivePersists = true;}};
+	public static class CachedRationsDropped extends CounterBuff{{revivePersists = true;}}
 
-	public static void onFoodEaten( Hero hero, float foodVal, Item foodSource ){
+	public static class NatureBerriesAvailable extends CounterBuff{{revivePersists = true;}} //for pre-1.3.0 saves
+	public static class NatureBerriesDropped extends CounterBuff{{revivePersists = true;}}
+
+	public static void onFoodEaten(Hero hero, Item foodSource ){
 		if (hero.hasTalent(HEARTY_MEAL)){
 			//3/5 HP healed, when hero is below 25% health
 			if (hero.HP <= hero.HT/4) {
@@ -484,7 +496,7 @@ public enum Talent {
 	}
 
 	//note that IDing can happen in alchemy scene, so be careful with VFX here
-	public static void onItemIdentified( Hero hero, Item item ){
+	public static void onItemIdentified( Hero hero ){
 		if (hero.hasTalent(TEST_SUBJECT)){
 			//heal for 2/3 HP
 			hero.HP = Math.min(hero.HP + 1 + hero.pointsInTalent(TEST_SUBJECT), hero.HT);
@@ -523,8 +535,9 @@ public enum Talent {
 		return dmg;
 	}
 
-	public static class SuckerPunchTracker extends Buff{};
-	public static class FollowupStrikeTracker extends Buff{};
+	public static class SuckerPunchTracker extends Buff{}
+
+	public static class FollowupStrikeTracker extends Buff{}
 
 	public static final int MAX_TALENT_TIERS = 4;
 

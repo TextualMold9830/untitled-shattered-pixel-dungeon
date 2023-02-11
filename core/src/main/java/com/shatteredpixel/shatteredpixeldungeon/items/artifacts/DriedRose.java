@@ -412,7 +412,7 @@ public class DriedRose extends Artifact {
 					&& target.buff(MagicImmune.class) == null
 					&& (lock == null || lock.regenOn())) {
 				//500 turns to a full charge
-				partialCharge += (1/5f * RingOfEnergy.artifactChargeMultiplier(target));
+				chargeCalc(partialCharge += (1/5f * RingOfEnergy.artifactChargeMultiplier(target)));
 				if (partialCharge > 1){
 					charge++;
 					partialCharge--;

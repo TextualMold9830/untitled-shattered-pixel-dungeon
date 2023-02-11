@@ -134,6 +134,7 @@ public class Assets {
 		public static final String HALLS_1      = "music/halls_1.ogg";
 		public static final String HALLS_2      = "music/halls_2.ogg";
 		public static final String HALLS_BOSS   = "music/halls_boss.ogg";
+		public static final String NEVER_GONNA_GIVE_YOU_UP= "music/never_gonna_give_you_up.ogg";
 	}
 
 	public static class Sounds {
@@ -206,7 +207,7 @@ public class Assets {
 		public static final String CHAINS   = "sounds/chains.mp3";
 		public static final String SCAN     = "sounds/scan.mp3";
 		public static final String SHEEP    = "sounds/sheep.mp3";
-
+		public static final String NVR_GNA_LYD = "sounds/nvr_gna_gyu.mp3";
 		public static final String[] all = new String[]{
 				CLICK, BADGE, GOLD,
 

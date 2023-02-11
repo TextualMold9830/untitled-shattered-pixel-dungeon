@@ -41,7 +41,6 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
-import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.utils.BArray;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -273,7 +272,7 @@ public class EtherealChains extends Artifact {
 		if (cursed || target.buff(MagicImmune.class) != null) return;
 		int chargeTarget = 5+(level()*2);
 		if (charge < chargeTarget*2){
-			partialCharge += 0.5f*amount;
+			partialCharge +=chargeCalc( 0.5f*amount);
 			if (partialCharge >= 1){
 				partialCharge--;
 				charge++;

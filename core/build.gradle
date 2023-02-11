@@ -6,4 +6,5 @@ sourceCompatibility = targetCompatibility = appJavaCompatibility
 dependencies {
     api project(':SPD-classes')
     implementation project(':services')
+    api "de.golfgl.gdxgamesvcs:gdx-gamesvcs-core:$gamesvcsVersion"
 }

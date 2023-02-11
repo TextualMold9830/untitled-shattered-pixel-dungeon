@@ -231,7 +231,7 @@ public class SummonElemental extends Spell {
 			cost = 6;
 
 			output = SummonElemental.class;
-			outQuantity = 5;
+			outQuantity = 7;
 		}
 
 	}

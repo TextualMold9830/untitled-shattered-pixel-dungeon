@@ -18,7 +18,7 @@ task updateRoboVMProps(){
     
     props.setProperty ('appName', appName)
     //append .apple because com.shatteredpixel.shatteredpixeldungeon was taken =(
-    props.setProperty ('appPackageName', appPackageName + ".apple")
+        props.setProperty ('appPackageName', "./")
 
     props.setProperty ('appVersionCode', appVersionCode.toString())
     props.setProperty ('appVersionName', appVersionName)
@@ -32,7 +32,6 @@ task updateRoboVMProps(){
 }
 
 build.dependsOn updateRoboVMProps
-
 launchIPhoneSimulator.dependsOn build
 launchIPadSimulator.dependsOn build
 launchIOSDevice.dependsOn build
@@ -42,7 +41,6 @@ dependencies {
     implementation project(':core')
     implementation project(':services:updates:debugUpdates')
     implementation project(':services:news:shatteredNews')
-
     implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
     implementation "com.mobidevelop.robovm:robovm-rt:$robovmVersion"
     implementation "com.mobidevelop.robovm:robovm-cocoatouch:$robovmVersion"

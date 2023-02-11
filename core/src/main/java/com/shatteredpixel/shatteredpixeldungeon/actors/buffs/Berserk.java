@@ -54,7 +54,7 @@ public class Berserk extends Buff implements ActionIndicator.Action {
 	private static final float LEVEL_RECOVER_START = 4f;
 	private float levelRecovery;
 
-	private static final int TURN_RECOVERY_START = 100;
+	private static final int TURN_RECOVERY_START = 30;
 	private int turnRecovery;
 
 	public int powerLossBuffer = 0;
@@ -133,7 +133,7 @@ public class Berserk extends Buff implements ActionIndicator.Action {
 			if (powerLossBuffer > 0){
 				powerLossBuffer--;
 			} else {
-				power -= GameMath.gate(0.1f, power, 1f) * 0.067f * Math.pow((target.HP / (float) target.HT), 2);
+				power -= GameMath.gate(0.1f, power, 0.5f) * 0.067f * Math.pow((target.HP / (float) target.HT), 2);
 
 				if (power < 1f){
 					ActionIndicator.clearAction(this);
@@ -216,9 +216,9 @@ public class Berserk extends Buff implements ActionIndicator.Action {
 	public void damage(int damage){
 		if (state != State.NORMAL) return;
 		float maxPower = 1f + 0.1667f*((Hero)target).pointsInTalent(Talent.ENDLESS_RAGE);
-		power = Math.min(maxPower, power + (damage/(float)target.HT)/3f );
+		power = Math.min(maxPower, power + (damage/(float)target.HT)/1.5f );
 		BuffIndicator.refreshHero(); //show new power immediately
-		powerLossBuffer = 3; //2 turns until rage starts dropping
+		powerLossBuffer = 6; //5 turns until rage starts dropping
 		if (power >= 1f){
 			ActionIndicator.setAction(this);
 		}

@@ -332,7 +332,7 @@ public class WandOfRegrowth extends Wand {
 		@Override
 		public void activate( Char ch ) {
 
-			int nDrops = Random.NormalIntRange(3, 6);
+			int nDrops = Random.NormalIntRange(4, 6);
 
 			ArrayList<Integer> candidates = new ArrayList<>();
 			for (int i : PathFinder.NEIGHBOURS8){

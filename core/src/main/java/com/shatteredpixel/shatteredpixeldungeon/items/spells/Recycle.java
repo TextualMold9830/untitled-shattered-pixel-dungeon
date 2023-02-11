@@ -103,10 +103,10 @@ public class Recycle extends InventorySpell {
 			inputs =  new Class[]{ScrollOfTransmutation.class, ArcaneCatalyst.class};
 			inQuantity = new int[]{1, 1};
 			
-			cost = 8;
+			cost = 9;
 			
 			output = Recycle.class;
-			outQuantity = 12;
+			outQuantity = 18;
 		}
 		
 	}

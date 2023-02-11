@@ -140,10 +140,10 @@ public class ReclaimTrap extends TargetedSpell {
 			inputs =  new Class[]{ScrollOfMagicMapping.class, MetalShard.class};
 			inQuantity = new int[]{1, 1};
 			
-			cost = 6;
+			cost = 4;
 			
 			output = ReclaimTrap.class;
-			outQuantity = 4;
+			outQuantity = 6;
 		}
 		
 	}

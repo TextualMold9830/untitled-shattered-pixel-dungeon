@@ -31,6 +31,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.KindofMisc;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.ArtifactHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
@@ -47,6 +48,7 @@ public class Belongings implements Iterable<Item> {
 	private Hero owner;
 
 	public static class Backpack extends Bag {
+
 		{
 			image = ItemSpriteSheet.BACKPACK;
 		}
@@ -64,6 +66,7 @@ public class Belongings implements Iterable<Item> {
 	public Backpack backpack;
 	
 	public Belongings( Hero owner ) {
+
 		this.owner = owner;
 		
 		backpack = new Backpack();
@@ -198,7 +201,28 @@ public class Belongings implements Iterable<Item> {
 
 		return result;
 	}
-	
+	public boolean hasArtifactBag(){
+		for (Item i : this){
+			if (i instanceof ArtifactHolder)return true;
+		}
+
+		return false;
+	}
+	public Bag getArtifactBag(){
+		for (Item i : this){
+			if (i instanceof ArtifactHolder)return (ArtifactHolder) i;
+		}
+
+		return null;
+	}
+	public boolean isInArtifactBag(Item item){
+		if (!hasArtifactBag()) return false;
+		else if (getArtifactBag().items.contains(item)) {
+			return true;
+		}
+		return false;
+
+	}
 	@SuppressWarnings("unchecked")
 	public<T extends Item> T getItem( Class<T> itemClass ) {
 
@@ -345,7 +369,7 @@ public class Belongings implements Iterable<Item> {
 		private int index = 0;
 		
 		private Iterator<Item> backpackIterator = backpack.iterator();
-		
+
 		private Item[] equipped = {weapon, armor, artifact, misc, ring};
 		private int backpackIndex = equipped.length;
 		

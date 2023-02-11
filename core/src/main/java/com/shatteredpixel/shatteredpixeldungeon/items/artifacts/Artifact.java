@@ -21,18 +21,22 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindofMisc;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.ArtifactHolder;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 public class Artifact extends KindofMisc {
+	public boolean isInBag= false;
 
 	protected Buff passiveBuff;
 	protected Buff activeBuff;
@@ -67,10 +71,9 @@ public class Artifact extends KindofMisc {
 		} else {
 
 			if (super.doEquip( hero )){
-
+				isInBag = false;
 				identify();
 				return true;
-
 			} else {
 
 				return false;
@@ -93,8 +96,10 @@ public class Artifact extends KindofMisc {
 	@Override
 	public boolean doUnequip( Hero hero, boolean collect, boolean single ) {
 		if (super.doUnequip( hero, collect, single )) {
-
-			if (passiveBuff != null) {
+			if(hero.belongings.isInArtifactBag(this)){
+				isInBag = true;
+				return true;
+			} else if (passiveBuff != null) {
 				passiveBuff.detach();
 				passiveBuff = null;
 			}
@@ -112,7 +117,12 @@ public class Artifact extends KindofMisc {
 	public boolean isUpgradable() {
 		return false;
 	}
-
+	public float chargeCalc(float ammount){
+		if (isInBag&&isIdentified()&&!cursed){
+			return ammount*ArtifactHolder.MULTIPLIER;
+		}else if(isInBag&&!isIdentified()||cursed){return 0;}
+		return ammount;
+	}
 	@Override
 	public int visiblyUpgraded() {
 		return levelKnown ? Math.round((level()*10)/(float)levelCap): 0;
@@ -121,6 +131,13 @@ public class Artifact extends KindofMisc {
 	@Override
 	public int buffedVisiblyUpgraded() {
 		return visiblyUpgraded();
+	}
+	public void bagActivate(){
+		if (!this.cursed&&this.isIdentified()) this.activate(hero);
+		else if ((hero.belongings.artifact != null && hero.belongings.artifact.getClass() == this.getClass())
+				|| (hero.belongings.misc != null && hero.belongings.misc.getClass() == this.getClass())) {
+			this.activate(hero);
+		}
 	}
 
 	@Override
@@ -136,10 +153,10 @@ public class Artifact extends KindofMisc {
 
 	@Override
 	public String info() {
-		if (cursed && cursedKnown && !isEquipped( Dungeon.hero )) {
+		if (cursed && cursedKnown && !isEquipped( hero )) {
 			return desc() + "\n\n" + Messages.get(Artifact.class, "curse_known");
 			
-		} else if (!isIdentified() && cursedKnown && !isEquipped( Dungeon.hero)) {
+		} else if (!isIdentified() && cursedKnown && !isEquipped( hero)) {
 			return desc()+ "\n\n" + Messages.get(Artifact.class, "not_cursed");
 			
 		} else {
@@ -202,6 +219,21 @@ public class Artifact extends KindofMisc {
 		return price;
 	}
 
+	@Override
+	public boolean collect(Bag container) {
+		if (super.collect(container)){
+			if (container.owner instanceof Hero
+					&& container instanceof ArtifactHolder
+					&&!this.cursed&&this.isIdentified()){
+				activate( container.owner);
+				isInBag= true;
+			}
+			return true;
+		} else{
+			return false;
+		}
+	}
+
 
 	protected ArtifactBuff passiveBuff() {
 		return null;
@@ -210,7 +242,6 @@ public class Artifact extends KindofMisc {
 	protected ArtifactBuff activeBuff() {return null; }
 	
 	public void charge(Hero target, float amount){
-		//do nothing by default;
 	}
 
 	public class ArtifactBuff extends Buff {
@@ -242,6 +273,7 @@ public class Artifact extends KindofMisc {
 	private static final String EXP = "exp";
 	private static final String CHARGE = "charge";
 	private static final String PARTIALCHARGE = "partialcharge";
+	private static final String ISINBAG = "isInBag";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -249,12 +281,14 @@ public class Artifact extends KindofMisc {
 		bundle.put( EXP , exp );
 		bundle.put( CHARGE , charge );
 		bundle.put( PARTIALCHARGE , partialCharge );
+		bundle.put(ISINBAG, isInBag);
 	}
 
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle(bundle);
 		exp = bundle.getInt( EXP );
+		isInBag = Boolean.getBoolean(ISINBAG);
 		if (chargeCap > 0)  charge = Math.min( chargeCap, bundle.getInt( CHARGE ));
 		else                charge = bundle.getInt( CHARGE );
 		partialCharge = bundle.getFloat( PARTIALCHARGE );

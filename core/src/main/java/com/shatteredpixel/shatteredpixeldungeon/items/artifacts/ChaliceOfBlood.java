@@ -153,7 +153,7 @@ public class ChaliceOfBlood extends Artifact {
 	
 	@Override
 	public void charge(Hero target, float amount) {
-		if (cursed || target.buff(MagicImmune.class) != null) return;
+		if (cursed || target.buff(MagicImmune.class) != null&&Dungeon.hero.belongings.artifact.getClass()==this.getClass()||Dungeon.hero.belongings.misc.getClass()==this.getClass()) return;
 
 		//grants 5 turns of healing up-front, if hero isn't starving
 		if (target.isStarving()) return;

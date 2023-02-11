@@ -60,7 +60,7 @@ public class FeatherFall extends Spell {
 			type = buffType.POSITIVE;
 		}
 
-		public static final float DURATION	= 30f;
+		public static final float DURATION	= 50f;
 
 		@Override
 		public int icon() {
@@ -90,10 +90,10 @@ public class FeatherFall extends Spell {
 			inputs =  new Class[]{PotionOfLevitation.class, ArcaneCatalyst.class};
 			inQuantity = new int[]{1, 1};
 			
-			cost = 8;
+			cost = 6;
 			
 			output = FeatherFall.class;
-			outQuantity = 2;
+			outQuantity = 3;
 		}
 		
 	}

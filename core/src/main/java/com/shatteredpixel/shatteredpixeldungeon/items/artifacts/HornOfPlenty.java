@@ -132,7 +132,7 @@ public class HornOfPlenty extends Artifact {
 					hero.spend(Food.TIME_TO_EAT);
 				}
 
-				Talent.onFoodEaten(hero, satietyPerCharge * chargesToUse, this);
+				Talent.onFoodEaten(hero, this);
 
 				Badges.validateFoodEaten();
 
@@ -260,7 +260,7 @@ public class HornOfPlenty extends Artifact {
 				//This means that a standard ration will be recovered in ~5.333 hero levels
 				float chargeGain = Hunger.STARVING * levelPortion * (0.25f + (0.125f*level()));
 				chargeGain *= RingOfEnergy.artifactChargeMultiplier(target);
-				partialCharge += chargeGain;
+				partialCharge +=chargeCalc(chargeGain);
 
 				//charge is in increments of 1/5 max hunger value.
 				while (partialCharge >= Hunger.STARVING/5) {

@@ -167,7 +167,6 @@ public class StartScene extends PixelScene {
 				} else {
 					name.text(Messages.titleCase(info.heroClass.title()));
 				}
-				
 				if (hero == null){
 					hero = new Image(info.heroClass.spritesheet(), 0, 15*info.armorTier, 12, 15);
 					add(hero);

@@ -129,7 +129,7 @@ public class TelekineticGrab extends TargetedSpell {
 			cost = 2;
 
 			output = TelekineticGrab.class;
-			outQuantity = 6;
+			outQuantity = 10;
 		}
 
 	}

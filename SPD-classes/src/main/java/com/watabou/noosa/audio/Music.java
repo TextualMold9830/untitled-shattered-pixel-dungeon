@@ -25,13 +25,8 @@ import com.badlogic.gdx.Gdx;
 import com.watabou.noosa.Game;
 import com.watabou.utils.DeviceCompat;
 import com.watabou.utils.Random;
-
-import java.awt.MediaTracker;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 public enum Music {
 	
@@ -49,8 +44,12 @@ public enum Music {
 	float[] trackChances;
 	private final ArrayList<String> trackQueue = new ArrayList<>();
 	boolean shuffle = false;
+	public static boolean rickroll=false;
 	
 	public synchronized void play( String assetName, boolean looping ) {
+		if (Music.rickroll){
+			assetName ="music/never_gonna_give_you_up.mp3";
+		}
 
 		//iOS cannot play ogg, so we use an mp3 alternative instead
 		if (assetName != null && DeviceCompat.isiOS()){
@@ -84,7 +83,7 @@ public enum Music {
 		}
 
 		//iOS cannot play ogg, so we use an mp3 alternative instead
-		if (tracks != null && DeviceCompat.isiOS()){
+		if (DeviceCompat.isiOS()){
 			for (int i = 0; i < tracks.length; i ++){
 				tracks[i] = tracks[i].replace(".ogg", ".mp3");
 			}
@@ -126,21 +125,13 @@ public enum Music {
 		play(trackQueue.remove(0), trackLooper);
 	}
 
-	private com.badlogic.gdx.audio.Music.OnCompletionListener trackLooper = new com.badlogic.gdx.audio.Music.OnCompletionListener() {
-		@Override
-		public void onCompletion(com.badlogic.gdx.audio.Music music) {
-			//we do this in a separate thread to avoid graphics hitching while the music is prepared
-			if (!DeviceCompat.isDesktop()) {
-				new Thread() {
-					@Override
-					public void run() {
-						playNextTrack(music);
-					}
-				}.start();
-			} else {
-				//don't use a separate thread on desktop, causes errors and makes no performance difference
-				playNextTrack(music);
-			}
+	private final com.badlogic.gdx.audio.Music.OnCompletionListener trackLooper = music -> {
+		//we do this in a separate thread to avoid graphics hitching while the music is prepared
+		if (!DeviceCompat.isDesktop()) {
+			new Thread(() -> playNextTrack(music)).start();
+		} else {
+			//don't use a separate thread on desktop, causes errors and makes no performance difference
+			playNextTrack(music);
 		}
 	};
 
@@ -165,7 +156,7 @@ public enum Music {
 		}
 
 		play(trackQueue.remove(0), trackLooper);
-	};
+	}
 
 	private synchronized void play(String track, com.badlogic.gdx.audio.Music.OnCompletionListener listener){
 		try {

@@ -32,7 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ChillingTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ConfusionTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.FlockTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GatewayTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GeyserTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.HealingTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.OozeTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ShockingTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.SummoningTrap;
@@ -100,9 +100,9 @@ public class SewerLevel extends RegularLevel {
 	@Override
 	protected Class<?>[] trapClasses() {
 		return Dungeon.depth == 1 ?
-				new Class<?>[]{ WornDartTrap.class } :
+				new Class<?>[]{ WornDartTrap.class, HealingTrap.class} :
 				new Class<?>[]{
-						ChillingTrap.class, ShockingTrap.class, ToxicTrap.class, WornDartTrap.class,
+						ChillingTrap.class, ShockingTrap.class, ToxicTrap.class, WornDartTrap.class,HealingTrap.class,
 						AlarmTrap.class, OozeTrap.class,
 						ConfusionTrap.class, FlockTrap.class, SummoningTrap.class, TeleportationTrap.class, GatewayTrap.class };
 }
@@ -110,9 +110,9 @@ public class SewerLevel extends RegularLevel {
 	@Override
 	protected float[] trapChances() {
 		return Dungeon.depth == 1 ?
-				new float[]{1} :
+				new float[]{1,1} :
 				new float[]{
-						4, 4, 4, 4,
+						4, 4, 4, 4,4,
 						2, 2,
 						1, 1, 1, 1, 1};
 	}
@@ -141,12 +141,10 @@ public class SewerLevel extends RegularLevel {
 	
 	@Override
 	public String tileName( int tile ) {
-		switch (tile) {
-			case Terrain.WATER:
-				return Messages.get(SewerLevel.class, "water_name");
-			default:
-				return super.tileName( tile );
+		if (tile == Terrain.WATER) {
+			return Messages.get(SewerLevel.class, "water_name");
 		}
+		return super.tileName(tile);
 	}
 	
 	@Override

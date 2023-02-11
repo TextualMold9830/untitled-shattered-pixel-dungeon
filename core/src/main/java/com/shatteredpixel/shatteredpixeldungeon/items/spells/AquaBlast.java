@@ -62,7 +62,7 @@ public class AquaBlast extends TargetedSpell {
 			cost = 2;
 			
 			output = AquaBlast.class;
-			outQuantity = 8;
+			outQuantity = 12;
 		}
 		
 	}

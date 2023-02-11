@@ -84,7 +84,7 @@ public class Food extends Item {
 			
 			hero.spend( eatingTime() );
 
-			Talent.onFoodEaten(hero, energy, this);
+			Talent.onFoodEaten(hero, this);
 			
 			Statistics.foodEaten++;
 			Badges.validateFoodEaten();

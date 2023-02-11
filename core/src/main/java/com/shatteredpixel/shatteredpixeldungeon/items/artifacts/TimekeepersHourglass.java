@@ -51,7 +51,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class TimekeepersHourglass extends Artifact {
+public class TimekeepersHourglass extends com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact {
 
 	{
 		image = ItemSpriteSheet.ARTIFACT_HOURGLASS;
@@ -238,7 +238,7 @@ public class TimekeepersHourglass extends Artifact {
 				//90 turns to charge at full, 60 turns to charge at 0/10
 				float chargeGain = 1 / (90f - (chargeCap - charge)*3f);
 				chargeGain *= RingOfEnergy.artifactChargeMultiplier(target);
-				partialCharge += chargeGain;
+				partialCharge += chargeCalc(chargeGain);
 
 				if (partialCharge >= 1) {
 					partialCharge --;
