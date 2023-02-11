@@ -13,8 +13,8 @@ allprojects {
 
     ext {
         gamesvcsVersion = '1.1.0'
-        appName = 'Shattered Pixel Dungeon'
-        appPackageName = 'com.shatteredpixel.shatteredpixeldungeon'
+        appName = 'Untitled Shattered Pixel Dungeon'
+        appPackageName = 'com.untitledshatteredpixel.untitledshatteredpixeldungeon'
 
         appVersionCode = 669
         appVersionName = '1.4.3'

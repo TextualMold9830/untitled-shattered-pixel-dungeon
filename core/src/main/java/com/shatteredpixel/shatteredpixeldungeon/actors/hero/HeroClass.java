@@ -185,6 +185,7 @@ public enum HeroClass {
 		(hero.belongings.weapon = new Gloves()).identify();
 		(hero.belongings.artifact = new AlchemistsToolkit()).identify();
 		hero.belongings.artifact.activate( hero );
+		hero.belongings.artifact.isInBag=false;
 		new ReactivePotion().quantity(5).collect();
 		new PotionOfHealing().identify();
 		new PotionOfLiquidFlame().identify();

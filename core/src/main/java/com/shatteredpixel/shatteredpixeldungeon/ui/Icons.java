@@ -46,6 +46,7 @@ public enum Icons {
 	MAGE,
 	ROGUE,
 	HUNTRESS,
+	POTION_MASTER,
 
 	//grey icons, mainly used for buttons, spacing for 16x16
 	EXIT,
@@ -166,7 +167,8 @@ public enum Icons {
 			case HUNTRESS:
 				icon.frame( icon.texture.uvRectBySize( 64, 16, 16, 16 ) );
 				break;
-
+			case POTION_MASTER:
+				icon.frame( icon.texture.uvRectBySize( 16, 16, 9, 15 ) );
 			case EXIT:
 				icon.frame( icon.texture.uvRectBySize( 0, 32, 15, 11 ) );
 				break;
@@ -399,7 +401,8 @@ public enum Icons {
 		case HUNTRESS:
 			return get( HUNTRESS );
 		default:
-			return null;
+			// TODO: POTIONMASTER: icon
+			return get(WARRIOR);
 		}
 	}
 
