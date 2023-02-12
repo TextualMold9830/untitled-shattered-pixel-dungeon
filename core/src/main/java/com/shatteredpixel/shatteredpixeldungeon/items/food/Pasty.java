@@ -21,9 +21,12 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArtifactRecharge;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WeirdBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
@@ -36,11 +39,12 @@ public class Pasty extends Food {
 
 	//TODO: implement fun stuff for other holidays
 	//TODO: probably should externalize this if I want to add any more festive stuff.
-	private enum Holiday{
+	 enum Holiday{
 		NONE,
 		EASTER, //TBD
 		HWEEN,//2nd week of october though first day of november
-		XMAS //3rd week of december through first week of january
+		XMAS, //3rd week of december through first week of january
+		SPECIAL // secret
 	}
 
 	private static Holiday holiday;
@@ -67,6 +71,10 @@ public class Pasty extends Food {
 				if (calendar.get(Calendar.WEEK_OF_MONTH) >= 3)
 					holiday = Holiday.XMAS;
 				break;
+			case Calendar.FEBRUARY:
+				if (calendar.get(Calendar.DAY_OF_MONTH)==12)
+					holiday = Holiday.SPECIAL;
+				break;
 		}
 	}
 
@@ -91,9 +99,16 @@ public class Pasty extends Food {
 			case XMAS:
 				image = ItemSpriteSheet.CANDY_CANE;
 				break;
+			case SPECIAL:
+				image = ItemSpriteSheet.CAKE;
 		}
 	}
-	
+
+	@Override
+	public int quantity() {
+		return super.quantity();
+	}
+
 	@Override
 	protected void satisfy(Hero hero) {
 		super.satisfy(hero);
@@ -110,6 +125,11 @@ public class Pasty extends Food {
 				Buff.affect( hero, Recharging.class, 2f ); //half of a charge
 				ScrollOfRecharging.charge( hero );
 				break;
+			case SPECIAL:
+				Buff.affect(hero, Bless.class, Bless.DURATION*2);
+				Buff.affect(hero, Recharging.class,Recharging.DURATION);
+				Buff.affect(hero, ArtifactRecharge.class).set( 30 ).ignoreHornOfPlenty = false;
+				Buff.affect(hero, WeirdBuff.class,200);
 		}
 	}
 
@@ -122,6 +142,8 @@ public class Pasty extends Food {
 				return Messages.get(this, "pie");
 			case XMAS:
 				return Messages.get(this, "cane");
+			case SPECIAL:
+				return "Cake";
 		}
 	}
 
@@ -134,6 +156,8 @@ public class Pasty extends Food {
 				return Messages.get(this, "pie_desc");
 			case XMAS:
 				return Messages.get(this, "cane_desc");
+			case SPECIAL:
+				return "A rare piece of cake you won't see for long";
 		}
 	}
 	

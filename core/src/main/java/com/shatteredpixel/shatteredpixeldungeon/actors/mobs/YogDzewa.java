@@ -494,6 +494,7 @@ public class YogDzewa extends Mob {
 		for (Mob mob : (Iterable<Mob>)Dungeon.level.mobs.clone()) {
 			if (mob instanceof Larva || mob instanceof YogRipper || mob instanceof YogEye || mob instanceof YogScorpio) {
 				mob.die( cause );
+				Dungeon.rickroll = false;
 			}
 		}
 

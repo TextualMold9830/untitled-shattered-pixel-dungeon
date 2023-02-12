@@ -466,7 +466,7 @@ public class ItemSpriteSheet {
 	public static final int SCROLL_CATALYST = SCROLLS+13;
 	public static final int ARCANE_RESIN    = SCROLLS+14;
 	static {
-		for (int i = SCROLLS; i < SCROLLS+16; i++)
+		for (int i = SCROLLS; i < SCROLLS+17; i++)
 			assignItemRect(i, 15, 14);
 		assignItemRect(SCROLL_CATALYST, 12, 11);
 		assignItemRect(ARCANE_RESIN   , 12, 11);
@@ -661,6 +661,8 @@ public class ItemSpriteSheet {
 	public static final int TOKEN   = QUEST+6;
 	public static final int BLOB    = QUEST+7;
 	public static final int SHARD   = QUEST+8;
+	public static final int SCROLL_OF_WIPE_OUT=QUEST+9;
+	public static final int CAKE=QUEST+10;
 	static{
 		assignItemRect(SKULL,   16, 11);
 		assignItemRect(DUST,    12, 11);
@@ -671,6 +673,8 @@ public class ItemSpriteSheet {
 		assignItemRect(TOKEN,   12, 12);
 		assignItemRect(BLOB,    10,  9);
 		assignItemRect(SHARD,    8, 10);
+		assignItemRect(SCROLL_OF_WIPE_OUT,15,15);
+		assignItemRect(CAKE,16,16);
 	}
 
 	private static final int BAGS       =                                   xy(1, 31);  //16 slots
