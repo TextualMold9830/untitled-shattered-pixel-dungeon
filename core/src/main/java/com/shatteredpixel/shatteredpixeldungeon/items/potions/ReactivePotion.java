@@ -23,6 +23,7 @@ import java.util.ArrayList;
 public class ReactivePotion extends Potion {
     {
         image = ItemSpriteSheet.POTION_AMBER;
+        identify();
     }
 
     @Override

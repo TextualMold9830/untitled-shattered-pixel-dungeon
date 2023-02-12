@@ -273,8 +273,9 @@ public enum HeroClass {
 			case HUNTRESS:
 				return Assets.Sprites.HUNTRESS;
 			case POTIONMASTER:
+				return Assets.Sprites.POTIONMASTER;
 		}
-		return Assets.Sprites.WARRIOR;
+		return null;
 	}
 
 	public String splashArt(){
@@ -287,7 +288,8 @@ public enum HeroClass {
 				return Assets.Splashes.ROGUE;
 			case HUNTRESS:
 				return Assets.Splashes.HUNTRESS;
-			case POTIONMASTER: return Assets.Sprites.WARRIOR;
+			case POTIONMASTER:
+				return Assets.Splashes.WARRIOR;
 		}
 	}
 	
