@@ -15,6 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 import java.io.IOException;
@@ -22,8 +23,7 @@ import java.util.ArrayList;
 
 public class ReactivePotion extends Potion {
     {
-        image = ItemSpriteSheet.POTION_AMBER;
-        identify();
+        image = ItemSpriteSheet.REACTIVE_POTION;
     }
 
     @Override
@@ -70,12 +70,28 @@ public class ReactivePotion extends Potion {
             Gdx.net.openURI("https://www.youtube.com/watch?v=mx86-rTclzA");
         }
 
+    }
 
+    @Override
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+    }
+
+
+    @Override
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+    }
+
+    @Override
+    public int value(){
+        return quantity()*5;
     }
     @Override
     public int energyVal(){
         return quantity;
     }
+    public boolean isKnown(){return true;}
     public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
 
 
@@ -96,8 +112,6 @@ public class ReactivePotion extends Potion {
             }
             return flame && healing;
         }
-
-
         @Override
         public int cost(ArrayList<Item> ingredients) {
             return 4;
@@ -116,8 +130,9 @@ public class ReactivePotion extends Potion {
 
         @Override
         public Item sampleOutput(ArrayList<Item> ingredients) {
-           return new ReactivePotion().quantity(15);
+           return new ReactivePotion().quantity(15).identify();
         }
+
     }
 }
 

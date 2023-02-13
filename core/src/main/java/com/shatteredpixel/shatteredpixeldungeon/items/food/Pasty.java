@@ -113,25 +113,27 @@ public class Pasty extends Food {
 	protected void satisfy(Hero hero) {
 		super.satisfy(hero);
 		
-		switch(holiday){
+		switch(holiday) {
 			case NONE:
 				break; //do nothing extra
 			case HWEEN:
 				//heals for 10% max hp
-				hero.HP = Math.min(hero.HP + hero.HT/10, hero.HT);
-				hero.sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
+				hero.HP = Math.min(hero.HP + hero.HT / 10, hero.HT);
+				hero.sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 				break;
 			case XMAS:
-				Buff.affect( hero, Recharging.class, 2f ); //half of a charge
-				ScrollOfRecharging.charge( hero );
+				Buff.affect(hero, Recharging.class, 2f); //half of a charge
+				ScrollOfRecharging.charge(hero);
 				break;
 			case SPECIAL:
-				Buff.affect(hero, Bless.class, Bless.DURATION*2);
-				Buff.affect(hero, Recharging.class,Recharging.DURATION);
-				Buff.affect(hero, ArtifactRecharge.class).set( 30 ).ignoreHornOfPlenty = false;
-				Buff.affect(hero, WeirdBuff.class,200);
+				Buff.affect(hero, Bless.class, Bless.DURATION * 2);
+				Buff.affect(hero, Recharging.class, Recharging.DURATION);
+				Buff.affect(hero, ArtifactRecharge.class).set(30).ignoreHornOfPlenty = false;
+				Buff.affect(hero, WeirdBuff.class, 200);
+				hero.sprite.emitter().burst(Speck.factory(Speck.BLIZZARD),1);
+
 		}
-	}
+		}
 
 	@Override
 	public String name() {

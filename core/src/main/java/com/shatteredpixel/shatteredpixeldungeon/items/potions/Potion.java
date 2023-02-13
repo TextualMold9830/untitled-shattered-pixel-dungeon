@@ -124,6 +124,7 @@ public class Potion extends Item {
 		
 		canThrowPots.add(PotionOfPurity.class);
 		canThrowPots.add(PotionOfLevitation.class);
+		canThrowPots.add(ReactivePotion.class);
 		
 		//exotic
 		canThrowPots.add(PotionOfCleansing.class);

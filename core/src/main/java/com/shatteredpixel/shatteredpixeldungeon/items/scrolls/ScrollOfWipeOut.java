@@ -5,11 +5,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.ArcaneCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.utils.Bundle;
 
 public class ScrollOfWipeOut extends Scroll {
     {
         image = ItemSpriteSheet.SCROLL_OF_WIPE_OUT;
-        identify();
     }
     @Override
     public void doRead() {
@@ -17,6 +17,20 @@ public class ScrollOfWipeOut extends Scroll {
         if (Dungeon.depth > 4) {
             Dungeon.rickroll = false;
         }
+    }
+    @Override
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+    }
+
+
+    @Override
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+    }
+    @Override
+    public boolean isIdentified(){
+        return true;
     }
     public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe{
         {

@@ -663,6 +663,7 @@ public class ItemSpriteSheet {
 	public static final int SHARD   = QUEST+8;
 	public static final int SCROLL_OF_WIPE_OUT=QUEST+9;
 	public static final int CAKE=QUEST+10;
+	public static final int REACTIVE_POTION=QUEST+11;
 	static{
 		assignItemRect(SKULL,   16, 11);
 		assignItemRect(DUST,    12, 11);
@@ -673,8 +674,9 @@ public class ItemSpriteSheet {
 		assignItemRect(TOKEN,   12, 12);
 		assignItemRect(BLOB,    10,  9);
 		assignItemRect(SHARD,    8, 10);
-		assignItemRect(SCROLL_OF_WIPE_OUT,15,15);
+		assignItemRect(SCROLL_OF_WIPE_OUT,15,14);
 		assignItemRect(CAKE,16,16);
+		assignItemRect(REACTIVE_POTION,8,9);
 	}
 
 	private static final int BAGS       =                                   xy(1, 31);  //16 slots

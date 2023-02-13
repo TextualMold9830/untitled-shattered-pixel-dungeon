@@ -12,4 +12,8 @@ public class WeirdBuff extends FlavourBuff{
     public String desc() {
         return "A rare buff you won't see for long";
     }
+    @Override
+    public String name(){
+        return "Weird Buff";
+    }
 }

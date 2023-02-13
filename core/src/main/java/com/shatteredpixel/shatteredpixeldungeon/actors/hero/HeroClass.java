@@ -43,6 +43,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.He
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.KingsCrown;
 import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolkit;
@@ -97,7 +98,7 @@ public enum HeroClass {
 		new ReactivePotion().identify(true);
 		hero.heroClass = this;
 		if (DeviceCompat.isDebug()){
-			System.out.println(Calendar.MONTH+Calendar.DAY_OF_MONTH);
+			new KingsCrown().collect();
 			new Pasty().collect();
 			new ScrollOfWipeOut().collect();
 			new ScrollOfForesight().identify().collect();
