@@ -120,8 +120,8 @@ public class LaboratoryRoom extends SpecialRoom {
 		}
 		if (Dungeon.hero.heroClass== HeroClass.POTIONMASTER) {
 			if (UnlockedRecipes.toBeGeneratedRecipes.size() > 0) {
-				int toBeGenereated = Random.Int(0, UnlockedRecipes.toBeGeneratedRecipes.size());
-				for (int i = 0; i < toBeGenereated; i++) {
+				int toBeGenerated = Random.Int(0, UnlockedRecipes.toBeGeneratedRecipes.size());
+				for (int i = 0; i < toBeGenerated; i++) {
 					MasterRecipes p = new MasterRecipes(UnlockedRecipes.toBeGeneratedRecipes.get(i));
 					do {
 						pos = level.pointToCell(random());

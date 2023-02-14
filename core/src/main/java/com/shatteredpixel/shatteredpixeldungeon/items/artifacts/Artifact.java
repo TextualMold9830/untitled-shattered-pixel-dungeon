@@ -117,11 +117,11 @@ public class Artifact extends KindofMisc {
 	public boolean isUpgradable() {
 		return false;
 	}
-	public float chargeCalc(float ammount){
+	public float chargeCalc(float amount){
 		if (isInBag&&isIdentified()&&!cursed){
-			return ammount*ArtifactHolder.MULTIPLIER;
+			return amount*ArtifactHolder.MULTIPLIER;
 		}else if(isInBag&&!isIdentified()||cursed){return 0;}
-		return ammount;
+		return amount;
 	}
 	@Override
 	public int visiblyUpgraded() {

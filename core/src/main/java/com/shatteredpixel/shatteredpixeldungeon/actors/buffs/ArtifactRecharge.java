@@ -24,6 +24,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MastersToolkit;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
@@ -39,7 +40,7 @@ public class ArtifactRecharge extends Buff {
 
 	private float left;
 	public boolean ignoreHornOfPlenty;
-	
+	public boolean ignoreMastersToolkit;
 	@Override
 	public boolean act() {
 
@@ -48,6 +49,9 @@ public class ArtifactRecharge extends Buff {
 			for (Buff b : target.buffs()) {
 				if (b instanceof Artifact.ArtifactBuff) {
 					if (b instanceof HornOfPlenty.hornRecharge && ignoreHornOfPlenty){
+						continue;
+					}
+					if (b instanceof MastersToolkit.kitEnergy && ignoreMastersToolkit){
 						continue;
 					}
 					if (!((Artifact.ArtifactBuff) b).isCursed()) {

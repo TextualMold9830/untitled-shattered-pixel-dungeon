@@ -43,6 +43,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.masterstoolkit.UnlockedRecipes;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
@@ -229,7 +230,9 @@ public class Dungeon {
 			Scroll.initLabels();
 			Potion.initColors();
 			Ring.initGems();
-
+			UnlockedRecipes.clear();
+			UnlockedRecipes.init();
+			System.out.println(UnlockedRecipes.toBeGeneratedRecipes.size());
 			SpecialRoom.initForRun();
 			SecretRoom.initForRun();
 

@@ -26,9 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.QuickSlot;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AnkhInvulnerability;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WeirdBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.NaturesPower;
@@ -44,15 +42,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.En
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.HeroicLeap;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
-import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolkit;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MastersToolkit;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfExperience;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
@@ -94,15 +90,7 @@ public enum HeroClass {
 			Buff.affect(hero, WeirdBuff.class, 300);}
 		new ReactivePotion().identify(true);
 		hero.heroClass = this;
-		if (DeviceCompat.isDebug()){
-			for (int i = 0; i < 6; i++) {
-				Buff.affect(hero, AnkhInvulnerability.class,5000);
-				Buff.affect(hero, Haste.class,5000);
 
-				Generator.randomUsingDefaults(Generator.Category.SEED).collect();
-			}
-			new PotionOfExperience().quantity(2).collect();
-		}
 		Talent.initClassTalents(hero);
 
 		Item i = new ClothArmor().identify();
@@ -190,13 +178,14 @@ public enum HeroClass {
 	}
 	public static void initPotionMaster(Hero hero){
 		(hero.belongings.weapon = new Gloves()).identify();
-		(hero.belongings.artifact = new AlchemistsToolkit()).identify();
+		(hero.belongings.artifact = new MastersToolkit()).identify();
 		hero.belongings.artifact.activate( hero );
 		hero.belongings.artifact.isInBag=false;
 		new ReactivePotion().quantity(5).identify().collect();
 		new PotionOfHealing().identify(true);
 		new PotionOfLiquidFlame().identify();
-		Dungeon.quickslot.setSlot(2, hero.belongings.artifact);
+		Dungeon.quickslot.setSlot(1, hero.belongings.artifact);
+
 	}
 
 	private static void initRogue( Hero hero ) {

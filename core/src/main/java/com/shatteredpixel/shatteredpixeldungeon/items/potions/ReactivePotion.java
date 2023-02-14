@@ -25,6 +25,8 @@ import java.util.ArrayList;
 public class ReactivePotion extends Potion {
     {
         image = ItemSpriteSheet.REACTIVE_POTION;
+        defaultAction = AC_CHOOSE;
+
     }
 
     @Override
