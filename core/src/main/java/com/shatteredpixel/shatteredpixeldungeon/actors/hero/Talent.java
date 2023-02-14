@@ -143,7 +143,12 @@ public enum Talent {
 	GROWING_POWER(116, 4), NATURES_WRATH(117, 4), WILD_MOMENTUM(118, 4),
 	//Spirit Hawk T4
 	EAGLE_EYE(119, 4), GO_FOR_THE_EYES(120, 4), SWIFT_SPIRIT(121, 4),
-
+	//Potion Master T1
+	//TODO POTIONMASTER rename cached potion and replace
+	CACHED_POTION(Assets.Talents.POTIONMASTER_T1), INTUITIVE_CRAFTING(Assets.Talents.POTIONMASTER_T1 +1), STRONGER_REACTION(Assets.Talents.POTIONMASTER_T1 +2), PROTECTIVE_POTIONS(Assets.Talents.POTIONMASTER_T1 +3),
+	//Potion Master T2
+	// TODO POTIONMASTER rename some talents
+	ALCHEMICAL_MEAL(Assets.Talents.POTIONMASTER_T2),RESTORED_ENERGY(Assets.Talents.POTIONMASTER_T2+1),PLACEHOLDER_T2_3(Assets.Talents.POTIONMASTER_T2+2),ALCHEMICAL_VISION(Assets.Talents.POTIONMASTER_T2+3),MULTIPLIED_POTIONS(Assets.Talents.POTIONMASTER_T2+4),
 	//universal T4
 	HEROIC_ENERGY(26, 4), //See icon() and title() for special logic for this one
 	//Ratmogrify T4
@@ -321,6 +326,8 @@ public enum Talent {
 	}
 
 	public static class CachedRationsDropped extends CounterBuff{{revivePersists = true;}}
+	//TODO: POTION MASTER RENAME this
+	public static class CachedPotionsDropped extends CounterBuff{{revivePersists=true;}}
 
 	public static class NatureBerriesAvailable extends CounterBuff{{revivePersists = true;}} //for pre-1.3.0 saves
 	public static class NatureBerriesDropped extends CounterBuff{{revivePersists = true;}}
@@ -365,6 +372,19 @@ public enum Talent {
 		if (hero.hasTalent(INVIGORATING_MEAL)){
 			//effectively 1/2 turns of haste
 			Buff.prolong( hero, Haste.class, 0.67f+hero.pointsInTalent(INVIGORATING_MEAL));
+		}
+		// TODO POTIONMASTER change this
+		if (hero.hasTalent(Talent.CACHED_POTION)){
+			Buff.affect(hero, Barrier.class).incShield(2+hero.pointsInTalent(Talent.CACHED_POTION)*2);
+		}
+		if (hero.hasTalent(Talent.ALCHEMICAL_MEAL)){
+			if (foodSource instanceof HornOfPlenty){
+				if (Random.Float(0f,100f)<hero.pointsInTalent(Talent.ALCHEMICAL_MEAL)*10){
+					Dungeon.energy+=1;
+				}
+			}else {
+				Dungeon.energy+=hero.pointsInTalent(Talent.ALCHEMICAL_MEAL);
+			}
 		}
 	}
 
@@ -438,6 +458,11 @@ public enum Talent {
 				}
 			}
 			Dungeon.observe();
+		}
+		//POTIONMASTER onHeal
+		if (hero.hasTalent(Talent.RESTORED_ENERGY)){
+			Dungeon.energy += hero.pointsInTalent(Talent.RESTORED_ENERGY);
+			Buff.affect(hero,Barrier.class).incShield(2+hero.pointsInTalent(Talent.RESTORED_ENERGY)*2);
 		}
 	}
 
@@ -570,6 +595,10 @@ public enum Talent {
 			case HUNTRESS:
 				Collections.addAll(tierTalents, NATURES_BOUNTY, SURVIVALISTS_INTUITION, FOLLOWUP_STRIKE, NATURES_AID);
 				break;
+			case POTIONMASTER:
+				// TODO POTIONMASTER talents replace hearty meal
+				Collections.addAll(tierTalents,	HEARTY_MEAL, INTUITIVE_CRAFTING, STRONGER_REACTION, PROTECTIVE_POTIONS );
+				break;
 		}
 		for (Talent talent : tierTalents){
 			if (replacements.containsKey(talent)){
@@ -593,6 +622,9 @@ public enum Talent {
 			case HUNTRESS:
 				Collections.addAll(tierTalents, INVIGORATING_MEAL, RESTORED_NATURE, REJUVENATING_STEPS, HEIGHTENED_SENSES, DURABLE_PROJECTILES);
 				break;
+			case POTIONMASTER:
+				//TODO POTIONMASTER talents replace rej stepts
+				Collections.addAll(tierTalents, ALCHEMICAL_MEAL,RESTORED_ENERGY,REJUVENATING_STEPS,ALCHEMICAL_VISION,MULTIPLIED_POTIONS);
 		}
 		for (Talent talent : tierTalents){
 			if (replacements.containsKey(talent)){

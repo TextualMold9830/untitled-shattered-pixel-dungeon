@@ -26,15 +26,18 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.ItemStatusHandler;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfHoneyedHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
@@ -47,11 +50,11 @@ import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Blindweed;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Mageroyal;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Earthroot;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Fadeleaf;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Mageroyal;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Rotberry;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Sorrowmoss;
@@ -281,6 +284,7 @@ public class Potion extends Item {
 		} else {
 			super.doThrow( hero );
 		}
+
 	}
 	
 	protected void drink( Hero hero ) {
@@ -294,6 +298,9 @@ public class Potion extends Item {
 		Sample.INSTANCE.play( Assets.Sounds.DRINK );
 		
 		hero.sprite.operate( hero.pos );
+		if (hero.hasTalent(Talent.PROTECTIVE_POTIONS)) {
+			Buff.affect(hero, Barrier.class).incShield(1+hero.pointsInTalent(Talent.PROTECTIVE_POTIONS)*2);
+		}
 	}
 	
 	@Override
@@ -319,6 +326,11 @@ public class Potion extends Item {
 			GLog.i( Messages.get(Potion.class, "shatter") );
 			Sample.INSTANCE.play( Assets.Sounds.SHATTER );
 			splash( cell );
+			Char c = Actor.findChar(cell);
+			if (Dungeon.hero.hasTalent(Talent.ALCHEMICAL_VISION)) {
+				int dur = 5 + 5*Dungeon.hero.pointsInTalent(Talent.ALCHEMICAL_VISION);
+				Buff.append(Dungeon.hero, TalismanOfForesight.CharAwareness.class, dur).charID = c.id();
+			}
 		}
 	}
 
@@ -484,31 +496,30 @@ public class Potion extends Item {
 		@Override
 		public Item brew(ArrayList<Item> ingredients) {
 			if (!testIngredients(ingredients)) return null;
-			
-			for (Item ingredient : ingredients){
+
+			for (Item ingredient : ingredients) {
 				ingredient.quantity(ingredient.quantity() - 1);
 			}
-			
-			ArrayList<Class<?extends Plant.Seed>> seeds = new ArrayList<>();
+
+			ArrayList<Class<? extends Plant.Seed>> seeds = new ArrayList<>();
 			for (Item i : ingredients) {
 				if (!seeds.contains(i.getClass())) {
 					seeds.add((Class<? extends Plant.Seed>) i.getClass());
 				}
 			}
-			
+
 			Potion result;
-			
-			if ( (seeds.size() == 2 && Random.Int(4) == 0)
+
+			if ((seeds.size() == 2 && Random.Int(4) == 0)
 					|| (seeds.size() == 3 && Random.Int(2) == 0)) {
-				
-				result = (Potion) Generator.randomUsingDefaults( Generator.Category.POTION );
-				
+
+				result = (Potion) Generator.randomUsingDefaults(Generator.Category.POTION);
+
 			} else {
 				result = Reflection.newInstance(types.get(Random.element(ingredients).getClass()));
-				
 			}
-			
-			if (seeds.size() == 1){
+
+			if (seeds.size() == 1) {
 				result.identify();
 			}
 
@@ -517,14 +528,15 @@ public class Potion extends Item {
 
 				result = (Potion) Generator.randomUsingDefaults(Generator.Category.POTION);
 			}
-			
+
 			if (result instanceof PotionOfHealing) {
 				Dungeon.LimitedDrops.COOKING_HP.count++;
 			}
-			
-			return result;
+			if (Random.Float(0f, 100f) < Dungeon.hero.pointsInTalent(Talent.INTUITIVE_CRAFTING) * 50f) {
+
+				return result.identify(true);
+			} else return result;
 		}
-		
 		@Override
 		public Item sampleOutput(ArrayList<Item> ingredients) {
 			return new WndBag.Placeholder(ItemSpriteSheet.POTION_HOLDER){

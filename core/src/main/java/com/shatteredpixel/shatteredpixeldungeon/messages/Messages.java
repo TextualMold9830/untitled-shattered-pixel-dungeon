@@ -45,7 +45,7 @@ public class Messages {
 	private static ArrayList<I18NBundle> bundles;
 	private static Languages lang;
 
-	public static final String NO_TEXT_FOUND = "!!!NO TEXT FOUND!!!";
+	public static final String NO_TEXT_FOUND = "!!!Ask tiresdonexits#1038 to stop streaming SPD and fix this!!!";
 
 	public static Languages lang(){
 		return lang;

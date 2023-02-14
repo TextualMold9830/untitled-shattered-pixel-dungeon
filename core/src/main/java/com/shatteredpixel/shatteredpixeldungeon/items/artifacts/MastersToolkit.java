@@ -1,6 +1,9 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+
+import java.util.ArrayList;
 
 public class MastersToolkit extends AlchemistsToolkit{
     {
@@ -23,5 +26,8 @@ public class MastersToolkit extends AlchemistsToolkit{
         charge-=amount;
     }
 
-
+    @Override
+    public ArrayList<String> actions(Hero hero) {
+        return super.actions(hero);
+    }
 }

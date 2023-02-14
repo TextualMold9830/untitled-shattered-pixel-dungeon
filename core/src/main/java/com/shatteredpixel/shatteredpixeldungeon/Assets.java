@@ -299,4 +299,8 @@ public class Assets {
 		public static final String SPIRIT_HAWK= "sprites/spirit_hawk.png";
 		public static final String RED_SENTRY= "sprites/red_sentry.png";
 	}
+	public static class Talents{
+		public static final int POTIONMASTER_T1 = 0;
+		public static final int POTIONMASTER_T2= POTIONMASTER_T1 +4;
+	}
 }

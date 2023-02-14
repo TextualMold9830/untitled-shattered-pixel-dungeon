@@ -24,15 +24,17 @@ package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Alchemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.EnergyCrystal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.masterstoolkit.UnlockedRecipes;
 import com.shatteredpixel.shatteredpixeldungeon.items.journal.AlchemyPage;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
+import com.shatteredpixel.shatteredpixeldungeon.journal.MasterRecipes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
-import com.shatteredpixel.shatteredpixeldungeon.levels.RegularLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.watabou.utils.Point;
@@ -114,6 +116,20 @@ public class LaboratoryRoom extends SpecialRoom {
 						level.map[pos] != Terrain.EMPTY_SP ||
 								level.heaps.get(pos) != null);
 				level.drop(p, pos);
+			}
+		}
+		if (Dungeon.hero.heroClass== HeroClass.POTIONMASTER) {
+			if (UnlockedRecipes.toBeGeneratedRecipes.size() > 0) {
+				int toBeGenereated = Random.Int(0, UnlockedRecipes.toBeGeneratedRecipes.size());
+				for (int i = 0; i < toBeGenereated; i++) {
+					MasterRecipes p = new MasterRecipes(UnlockedRecipes.toBeGeneratedRecipes.get(i));
+					do {
+						pos = level.pointToCell(random());
+					} while (
+							level.map[pos] != Terrain.EMPTY_SP ||
+									level.heaps.get(pos) != null);
+					level.drop(p, pos);
+				}
 			}
 		}
 

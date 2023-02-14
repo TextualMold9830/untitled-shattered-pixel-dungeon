@@ -11,6 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -57,8 +58,12 @@ public class ReactivePotion extends Potion {
                 Sample.INSTANCE.play(Assets.Sounds.BURNING);
             }
             if (!Dungeon.level.solid[cell]) {
+                if (!Dungeon.hero.hasTalent(Talent.STRONGER_REACTION)) {
+                    GameScene.add(Blob.seed(cell, 2, Fire.class));
+                }else {
+                    GameScene.add(Blob.seed(cell, 2+ Dungeon.hero.pointsInTalent(Talent.STRONGER_REACTION), Fire.class));
 
-                GameScene.add(Blob.seed(cell, 2, Fire.class));
+                }
 
             }
         if (Random.Int(1,100)<3){
@@ -130,7 +135,7 @@ public class ReactivePotion extends Potion {
 
         @Override
         public Item sampleOutput(ArrayList<Item> ingredients) {
-           return new ReactivePotion().quantity(15).identify();
+           return new ReactivePotion().quantity(15+Dungeon.hero.pointsInTalent(Talent.MULTIPLIED_POTIONS)).identify();
         }
 
     }
