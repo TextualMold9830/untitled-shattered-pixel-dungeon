@@ -185,6 +185,9 @@ public enum HeroClass {
 		new PotionOfHealing().identify(true);
 		new PotionOfLiquidFlame().identify();
 		Dungeon.quickslot.setSlot(1, hero.belongings.artifact);
+		if (DeviceCompat.isDebug()){
+			Dungeon.energy+=10;
+		}
 
 	}
 

@@ -52,31 +52,30 @@ public class ReactivePotion extends Potion {
             return;
         }
 
-            if (Dungeon.level.heroFOV[cell]) {
-                identify();
+        if (Dungeon.level.heroFOV[cell]) {
+            identify();
 
-                splash(cell);
-                Sample.INSTANCE.play(Assets.Sounds.SHATTER);
-                Sample.INSTANCE.play(Assets.Sounds.BURNING);
-            }
-            if (!Dungeon.level.solid[cell]) {
-                if (!Dungeon.hero.hasTalent(Talent.STRONGER_REACTION)) {
-                    GameScene.add(Blob.seed(cell, 2, Fire.class));
-                }else {
-                    GameScene.add(Blob.seed(cell, 2+ Dungeon.hero.pointsInTalent(Talent.STRONGER_REACTION), Fire.class));
-
+            splash(cell);
+            Sample.INSTANCE.play(Assets.Sounds.SHATTER);
+            Sample.INSTANCE.play(Assets.Sounds.BURNING);
+        }
+        if (!Dungeon.level.solid[cell]) {
+            if (!Dungeon.hero.hasTalent(Talent.STRONGER_REACTION)) {
+                GameScene.add(Blob.seed(cell, 2, Fire.class));
+            } else {
+                GameScene.add(Blob.seed(cell, 2,Fire.class));
+                
+                if (Random.Int(1, 100) < 3) {
+                    try {
+                        Dungeon.saveAll();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    Gdx.net.openURI("https://www.youtube.com/watch?v=mx86-rTclzA");
                 }
 
             }
-        if (Random.Int(1,100)<3){
-            try {
-                Dungeon.saveAll();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            Gdx.net.openURI("https://www.youtube.com/watch?v=mx86-rTclzA");
         }
-
     }
 
     @Override
