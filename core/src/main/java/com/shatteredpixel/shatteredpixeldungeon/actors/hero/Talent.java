@@ -462,7 +462,7 @@ public enum Talent {
 		//POTIONMASTER onHeal
 		if (hero.hasTalent(Talent.RESTORED_ENERGY)){
 			Dungeon.energy += hero.pointsInTalent(Talent.RESTORED_ENERGY);
-			Buff.affect(hero,Barrier.class).incShield(2+hero.pointsInTalent(Talent.RESTORED_ENERGY)*2);
+			Buff.affect(hero,Barrier.class).incShield(2+hero.pointsInTalent(Talent.RESTORED_ENERGY)*3);
 		}
 	}
 

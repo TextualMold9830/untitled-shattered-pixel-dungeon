@@ -246,6 +246,8 @@ public enum HeroClass {
 				return new ArmorAbility[]{new SmokeBomb(), new DeathMark(), new ShadowClone()};
 			case HUNTRESS:
 				return new ArmorAbility[]{new SpectralBlades(), new NaturesPower(), new SpiritHawk()};
+			case POTIONMASTER:
+				return new ArmorAbility[]{new Endure(), new WarpBeacon(), new ShadowClone(), new SpectralBlades()};
 		}
 	}
 

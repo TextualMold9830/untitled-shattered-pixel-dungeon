@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.StrongerFire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -63,8 +64,10 @@ public class ReactivePotion extends Potion {
             if (!Dungeon.hero.hasTalent(Talent.STRONGER_REACTION)) {
                 GameScene.add(Blob.seed(cell, 2, Fire.class));
             } else {
-                GameScene.add(Blob.seed(cell, 2,Fire.class));
-                
+                GameScene.add(Blob.seed(cell,2, StrongerFire.class));
+
+            }
+
                 if (Random.Int(1, 100) < 3) {
                     try {
                         Dungeon.saveAll();
@@ -76,7 +79,7 @@ public class ReactivePotion extends Potion {
 
             }
         }
-    }
+
 
     @Override
     public void storeInBundle(Bundle bundle) {
