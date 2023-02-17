@@ -48,7 +48,11 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Button;
 import com.watabou.utils.FileUtils;
 
 public class AndroidLauncher extends AndroidApplication {
-	
+	@Override
+	public Context getApplicationContext() {
+		return super.getApplicationContext();
+	}
+
 	public static AndroidApplication instance;
 	
 	private static AndroidPlatformSupport support;
@@ -130,7 +134,7 @@ public class AndroidLauncher extends AndroidApplication {
 
 		Button.longClick = ViewConfiguration.getLongPressTimeout()/1000f;
 		
-		initialize(new ShatteredPixelDungeon(support), config);
+		initialize(new ShatteredPixelDungeon(support,new AndroidVolumeControl(getApplicationContext())), config);
 		
 	}
 

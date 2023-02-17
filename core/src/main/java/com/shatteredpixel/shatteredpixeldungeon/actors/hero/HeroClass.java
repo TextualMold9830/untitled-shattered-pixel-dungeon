@@ -59,6 +59,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dagger;
@@ -78,7 +79,7 @@ public enum HeroClass {
 	MAGE( HeroSubClass.BATTLEMAGE, HeroSubClass.WARLOCK ),
 	ROGUE( HeroSubClass.ASSASSIN, HeroSubClass.FREERUNNER ),
 	HUNTRESS( HeroSubClass.SNIPER, HeroSubClass.WARDEN ),
-	POTIONMASTER(HeroSubClass.ALCHEMIST,HeroSubClass.MADSCIENTIST);
+	POTIONMASTER(HeroSubClass.WARDEN,HeroSubClass.BERSERKER);
 	private final HeroSubClass[] subClasses;
 
 	HeroClass( HeroSubClass...subClasses ) {
@@ -86,6 +87,9 @@ public enum HeroClass {
 	}
 
 	public void initHero( Hero hero ) {
+		if (DeviceCompat.isDebug()){
+			new ScrollOfForesight().identify().collect();
+		}
 		if (Calendar.getInstance().get(Calendar.MONTH)==Calendar.FEBRUARY&& Calendar.getInstance().get(Calendar.DAY_OF_MONTH)==12) {
 			Buff.affect(hero, WeirdBuff.class, 300);}
 		new ReactivePotion().identify(true);
@@ -185,9 +189,7 @@ public enum HeroClass {
 		new PotionOfHealing().identify(true);
 		new PotionOfLiquidFlame().identify();
 		Dungeon.quickslot.setSlot(1, hero.belongings.artifact);
-		if (DeviceCompat.isDebug()){
-			Dungeon.energy+=10;
-		}
+
 
 	}
 

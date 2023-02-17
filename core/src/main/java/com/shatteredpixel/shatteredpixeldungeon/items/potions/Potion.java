@@ -26,6 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AdrenalineSurge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
@@ -300,6 +301,11 @@ public class Potion extends Item {
 		hero.sprite.operate( hero.pos );
 		if (hero.hasTalent(Talent.PROTECTIVE_POTIONS)) {
 			Buff.affect(hero, Barrier.class).incShield(1+hero.pointsInTalent(Talent.PROTECTIVE_POTIONS)*2);
+		}
+		if (hero.hasTalent(Talent.BULKING_POTIONS)){
+			AdrenalineSurge surge = new AdrenalineSurge();
+			surge.reset(Dungeon.hero.pointsInTalent(Talent.BULKING_POTIONS)*5,5f);
+			Buff.affect(hero, AdrenalineSurge.class);
 		}
 	}
 	

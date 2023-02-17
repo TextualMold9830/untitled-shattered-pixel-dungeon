@@ -31,9 +31,10 @@ import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.DeviceCompat;
 import com.watabou.utils.PlatformSupport;
+import com.watabou.utils.VolumeController;
 
 public class ShatteredPixelDungeon extends Game {
-
+	public static VolumeController controller;
 	//variable constants for specific older versions of shattered, used for data conversion
 	//versions older than v1.0.3 are no longer supported, and data from them is ignored
 	public static final int v1_0_3  = 574;
@@ -42,9 +43,9 @@ public class ShatteredPixelDungeon extends Game {
 	public static final int v1_3_2  = 648;
 	public static final int v1_4_0  = 660;
 	
-	public ShatteredPixelDungeon( PlatformSupport platform ) {
+	public ShatteredPixelDungeon( PlatformSupport platform , VolumeController controller) {
 		super( sceneClass == null ? WelcomeScene.class : sceneClass, platform );
-
+		this.controller=controller;
 		//pre-v1.3.0
 		com.watabou.utils.Bundle.addAlias(
 				com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding.class,
@@ -93,6 +94,57 @@ public class ShatteredPixelDungeon extends Game {
 				"com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPolymorph" );
 		
 	}
+	public ShatteredPixelDungeon( PlatformSupport platform) {
+		super( sceneClass == null ? WelcomeScene.class : sceneClass, platform );
+		controller=null;
+		//pre-v1.3.0
+		com.watabou.utils.Bundle.addAlias(
+				com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding.class,
+				"com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm$FallBleed" );
+		com.watabou.utils.Bundle.addAlias(
+				com.shatteredpixel.shatteredpixeldungeon.plants.Mageroyal.class,
+				"com.shatteredpixel.shatteredpixeldungeon.plants.Dreamfoil" );
+		com.watabou.utils.Bundle.addAlias(
+				com.shatteredpixel.shatteredpixeldungeon.plants.Mageroyal.Seed.class,
+				"com.shatteredpixel.shatteredpixeldungeon.plants.Dreamfoil$Seed" );
+
+		com.watabou.utils.Bundle.addAlias(
+				com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Dazzling.class,
+				"com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Exhausting" );
+		com.watabou.utils.Bundle.addAlias(
+				com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Explosive.class,
+				"com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Fragile" );
+
+		//pre-v1.2.0
+		com.watabou.utils.Bundle.addAlias(
+				com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.CleansingDart.class,
+				"com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.SleepDart" );
+
+		com.watabou.utils.Bundle.addAlias(
+				com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.CrystalVaultRoom.class,
+				"com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.VaultRoom" );
+
+		//pre-v1.1.0
+		com.watabou.utils.Bundle.addAlias(
+				com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfDread.class,
+				"com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPetrification" );
+		com.watabou.utils.Bundle.addAlias(
+				com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfSirensSong.class,
+				"com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfAffection" );
+		com.watabou.utils.Bundle.addAlias(
+				com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge.class,
+				"com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfConfusion" );
+		com.watabou.utils.Bundle.addAlias(
+				com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfDivineInspiration.class,
+				"com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfHolyFuror" );
+		com.watabou.utils.Bundle.addAlias(
+				com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfMastery.class,
+				"com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfAdrenalineSurge" );
+		com.watabou.utils.Bundle.addAlias(
+				ScrollOfMetamorphosis.class,
+				"com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPolymorph" );
+
+	}
 	
 	@Override
 	public void create() {
@@ -109,6 +161,7 @@ public class ShatteredPixelDungeon extends Game {
 		Sample.INSTANCE.load( Assets.Sounds.all );
 		
 	}
+
 
 	@Override
 	public void finish() {

@@ -144,10 +144,13 @@ public enum Talent {
 	//Spirit Hawk T4
 	EAGLE_EYE(119, 4), GO_FOR_THE_EYES(120, 4), SWIFT_SPIRIT(121, 4),
 	//Potion Master T1
-	//TODO POTIONMASTER rename cached potion and replace
-	CACHED_POTION(Assets.Talents.POTIONMASTER_T1), INTUITIVE_CRAFTING(Assets.Talents.POTIONMASTER_T1 +1), STRONGER_REACTION(Assets.Talents.POTIONMASTER_T1 +2), PROTECTIVE_POTIONS(Assets.Talents.POTIONMASTER_T1 +3),
+	//TODO POTIONMASTER add descs and titles
+	SHIELDING_MEAL(Assets.Talents.POTIONMASTER_T1), INTUITIVE_CRAFTING(Assets.Talents.POTIONMASTER_T1 +1), STRONGER_REACTION(Assets.Talents.POTIONMASTER_T1 +2), PROTECTIVE_POTIONS(Assets.Talents.POTIONMASTER_T1 +3),
 	//Potion Master T2
-	// TODO POTIONMASTER rename some talents
+	// TODO POTIONMASTER add descs and titles, T2 slot 3 is a talent that gives alchemical energy when killing enemies
+	//Potion Master T3
+	//TODO POTIONMASTER remove the talent
+	BULKING_POTIONS(10,3),
 	ALCHEMICAL_MEAL(Assets.Talents.POTIONMASTER_T2),RESTORED_ENERGY(Assets.Talents.POTIONMASTER_T2+1),PLACEHOLDER_T2_3(Assets.Talents.POTIONMASTER_T2+2),ALCHEMICAL_VISION(Assets.Talents.POTIONMASTER_T2+3),MULTIPLIED_POTIONS(Assets.Talents.POTIONMASTER_T2+4),
 	//universal T4
 	HEROIC_ENERGY(26, 4), //See icon() and title() for special logic for this one
@@ -374,8 +377,8 @@ public enum Talent {
 			Buff.prolong( hero, Haste.class, 0.67f+hero.pointsInTalent(INVIGORATING_MEAL));
 		}
 		// TODO POTIONMASTER change this
-		if (hero.hasTalent(Talent.CACHED_POTION)){
-			Buff.affect(hero, Barrier.class).incShield(2+hero.pointsInTalent(Talent.CACHED_POTION)*2);
+		if (hero.hasTalent(Talent.SHIELDING_MEAL)){
+			Buff.affect(hero, Barrier.class).incShield(2+hero.pointsInTalent(Talent.SHIELDING_MEAL)*2);
 		}
 		if (hero.hasTalent(Talent.ALCHEMICAL_MEAL)){
 			if (foodSource instanceof HornOfPlenty){
@@ -597,7 +600,7 @@ public enum Talent {
 				break;
 			case POTIONMASTER:
 				// TODO POTIONMASTER talents replace hearty meal
-				Collections.addAll(tierTalents,	HEARTY_MEAL, INTUITIVE_CRAFTING, STRONGER_REACTION, PROTECTIVE_POTIONS );
+				Collections.addAll(tierTalents,	SHIELDING_MEAL, INTUITIVE_CRAFTING, STRONGER_REACTION, PROTECTIVE_POTIONS );
 				break;
 		}
 		for (Talent talent : tierTalents){
@@ -648,6 +651,8 @@ public enum Talent {
 			case HUNTRESS:
 				Collections.addAll(tierTalents, POINT_BLANK, SEER_SHOT);
 				break;
+			case POTIONMASTER:
+				Collections.addAll(tierTalents,ENHANCED_RINGS,EMPOWERING_SCROLLS);
 		}
 		for (Talent talent : tierTalents){
 			if (replacements.containsKey(talent)){
