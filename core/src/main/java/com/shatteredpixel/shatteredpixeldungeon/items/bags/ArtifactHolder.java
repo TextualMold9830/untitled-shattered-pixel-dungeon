@@ -4,7 +4,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 
 public class ArtifactHolder extends Bag{
-    public static float MULTIPLIER = 0.20f;
+    public static float MULTIPLIER = 0.50f;
     @Override
     public int capacity() {
         return 5;

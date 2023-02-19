@@ -40,7 +40,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corrosion;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corruption;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Doom;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
@@ -90,13 +89,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetributio
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFireblast;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLightning;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazing;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blocking;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Grim;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Kinetic;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
@@ -688,6 +685,11 @@ public abstract class Char extends Actor {
 				}
 				((Char) src).buff(Kinetic.KineticTracker.class).detach();
 			}
+		if (HP<0&& src== Dungeon.hero&&Dungeon.hero.hasTalent(Talent.ENERGY_SIPHON)){
+			if(Random.Int(0,100)<Dungeon.hero.pointsInTalent(Talent.ENERGY_SIPHON)){
+				Dungeon.energy+=1;
+			}
+		}
 		}
 		
 		if (sprite != null) {

@@ -303,9 +303,8 @@ public class Potion extends Item {
 			Buff.affect(hero, Barrier.class).incShield(1+hero.pointsInTalent(Talent.PROTECTIVE_POTIONS)*2);
 		}
 		if (hero.hasTalent(Talent.BULKING_POTIONS)){
-			AdrenalineSurge surge = new AdrenalineSurge();
-			surge.reset(Dungeon.hero.pointsInTalent(Talent.BULKING_POTIONS)*5,5f);
-			Buff.affect(hero, AdrenalineSurge.class);
+			Buff.affect(hero,AdrenalineSurge.class).reset(1+hero.pointsInTalent(Talent.BULKING_POTIONS)*5,5);
+
 		}
 	}
 	

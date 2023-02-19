@@ -18,7 +18,7 @@ task updateRoboVMProps(){
     
     props.setProperty ('appName', appName)
     //append .apple because com.shatteredpixel.shatteredpixeldungeon was taken =(
-        props.setProperty ('appPackageName', "com.untitledshatteredpixel.untitledshatteredpixeldungeon")
+        props.setProperty ('appPackageName', "com.untitledShatteredPixel.untitledShatteredPixelDungeon")
 
     props.setProperty ('appVersionCode', appVersionCode.toString())
     props.setProperty ('appVersionName', appVersionName)

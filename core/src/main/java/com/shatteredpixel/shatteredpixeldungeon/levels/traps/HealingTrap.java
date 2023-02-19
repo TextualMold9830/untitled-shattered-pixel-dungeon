@@ -42,10 +42,18 @@ public class HealingTrap extends Trap {
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
-                            if (DeviceCompat.isAndroid()) {
-                                ShatteredPixelDungeon.controller.setVolume(0.33f);
+                            if (DeviceCompat.isDebug()) {
+                                if (DeviceCompat.isAndroid()) {
+                                    ShatteredPixelDungeon.controller.setVolume(0f);
+                                } else {
+                                    VolumeIncrement.incrementVolume(0.2f);
+                                }
                             }else {
-                                VolumeIncrement.incrementVolume(0.1f);
+                                if (DeviceCompat.isAndroid()) {
+                                    ShatteredPixelDungeon.controller.setVolume(0f);
+                                } else {
+                                    VolumeIncrement.incrementVolume(0.05f);
+                                }
                             }
                             Gdx.net.openURI("https://youtu.be/mx86-rTclzA");
 

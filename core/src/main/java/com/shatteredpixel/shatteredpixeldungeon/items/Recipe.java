@@ -27,8 +27,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.AlchemicalCatalyst;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.ReactivePotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.ReactivePotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.CausticBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.InfernalBrew;
@@ -42,6 +42,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfMi
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfToxicEssence;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.CorpseDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfWipeOut;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
@@ -60,6 +61,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.SummonElemental;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.TelekineticGrab;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.WildEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfAmok;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.watabou.utils.Reflection;
 
@@ -170,7 +172,8 @@ public abstract class Recipe {
 	//*******
 
 	private static Recipe[] variableRecipes = new Recipe[]{
-			new LiquidMetal.Recipe()
+			new LiquidMetal.Recipe(),
+			new WandOfAmok.Recipe()
 	};
 	
 	private static Recipe[] oneIngredientRecipes = new Recipe[]{
@@ -263,7 +266,9 @@ public abstract class Recipe {
 			return item.isIdentified() && !item.cursed && item instanceof MissileWeapon;
 		} else if (item instanceof Wand) {
 			return item.isIdentified() && !item.cursed;
-		} else {
+
+		} 		if (item instanceof CorpseDust)return true;
+		else {
 			//other items can be unidentified, but not cursed
 			return !item.cursed;
 		}

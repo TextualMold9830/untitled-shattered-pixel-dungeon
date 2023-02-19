@@ -48,6 +48,13 @@ public class PotionOfHealing extends Potion {
 
 		bones = true;
 	}
+	@Override
+	public void shatter(int cell){
+		Char ch = Char.findChar(cell);
+		if (ch.alignment== Char.Alignment.ENEMY){
+			Buff.affect( ch, Poison.class ).set( 5 + Math.round(2*Dungeon.scalingDepth() / (4f-Dungeon.hero.pointsInTalent(Talent.LONGER_SIDE_EFFECTS))) );
+		}
+	}
 	
 	@Override
 	public void apply( Hero hero ) {

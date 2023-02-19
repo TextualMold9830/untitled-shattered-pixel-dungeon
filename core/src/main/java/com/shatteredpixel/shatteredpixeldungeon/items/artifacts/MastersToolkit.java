@@ -6,6 +6,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -16,8 +18,8 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.WndNumber;
 import java.util.ArrayList;
 
 public class MastersToolkit extends AlchemistsToolkit {
-    private float warmUpDelay;
     public static final String AC_CONVERT = "CONVERT";
+    public static final String AC_DRINK="DRINK";
 
     {
         image = ItemSpriteSheet.ARTIFACT_TOOLKIT;
@@ -43,6 +45,9 @@ public class MastersToolkit extends AlchemistsToolkit {
         ArrayList<String> actions = super.actions(hero);
         if (isEquipped( hero ) && !cursed && hero.buff(MagicImmune.class) == null&&level()>=10) {
             actions.add(AC_CONVERT);
+        if (isEquipped(hero)||hero.hasTalent(Talent.LIGHT_CLOAK)&&hero.subClass== HeroSubClass.ALCHEMIST&&!cursed && hero.buff(MagicImmune.class) == null){
+            actions.add(AC_DRINK);
+        }
 
         }
 
@@ -51,7 +56,6 @@ public class MastersToolkit extends AlchemistsToolkit {
     }
     @Override
     public void execute(Hero hero, String action ) {
-
         super.execute(hero, action);
         if (action == AC_CONVERT) {
             if (!isEquipped(hero))

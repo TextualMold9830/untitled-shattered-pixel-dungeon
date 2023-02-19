@@ -44,10 +44,10 @@ public class ImpShopRoom extends ShopRoom {
 		return 9;
 	}
 	public int minHeight() {
-		return 9;
+		return 10;
 	}
 	public int maxWidth() { return 9; }
-	public int maxHeight() { return 9; }
+	public int maxHeight() { return 10; }
 
 	@Override
 	public int maxConnections(int direction) {

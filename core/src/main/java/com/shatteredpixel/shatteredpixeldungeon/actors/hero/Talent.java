@@ -148,10 +148,18 @@ public enum Talent {
 	SHIELDING_MEAL(Assets.Talents.POTIONMASTER_T1), INTUITIVE_CRAFTING(Assets.Talents.POTIONMASTER_T1 +1), STRONGER_REACTION(Assets.Talents.POTIONMASTER_T1 +2), PROTECTIVE_POTIONS(Assets.Talents.POTIONMASTER_T1 +3),
 	//Potion Master T2
 	// TODO POTIONMASTER add descs and titles, T2 slot 3 is a talent that gives alchemical energy when killing enemies
+	ALCHEMICAL_MEAL(Assets.Talents.POTIONMASTER_T2),RESTORED_ENERGY(Assets.Talents.POTIONMASTER_T2+1), ENERGY_SIPHON(Assets.Talents.POTIONMASTER_T2+2),ALCHEMICAL_VISION(Assets.Talents.POTIONMASTER_T2+3),MULTIPLIED_POTIONS(Assets.Talents.POTIONMASTER_T2+4),
+
 	//Potion Master T3
 	//TODO POTIONMASTER remove the talent
 	BULKING_POTIONS(10,3),
-	ALCHEMICAL_MEAL(Assets.Talents.POTIONMASTER_T2),RESTORED_ENERGY(Assets.Talents.POTIONMASTER_T2+1),PLACEHOLDER_T2_3(Assets.Talents.POTIONMASTER_T2+2),ALCHEMICAL_VISION(Assets.Talents.POTIONMASTER_T2+3),MULTIPLIED_POTIONS(Assets.Talents.POTIONMASTER_T2+4),
+	//TODO POTIONMASTER finsih subclasses
+	//Alechemist
+	LONGER_SIDE_EFFECTS(1,3),
+
+	//TODO POTIONMASTER AMMOR
+	//EnergyBlast
+	ENERGY_RADIUS(1,4),ENERGY_POWER(1,4),ENERGY_STEAL(1,4),
 	//universal T4
 	HEROIC_ENERGY(26, 4), //See icon() and title() for special logic for this one
 	//Ratmogrify T4
@@ -623,7 +631,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, MYSTICAL_MEAL, MYSTICAL_UPGRADE, WIDE_SEARCH, SILENT_STEPS, ROGUES_FORESIGHT);
 				break;
 			case HUNTRESS:
-				Collections.addAll(tierTalents, INVIGORATING_MEAL, RESTORED_NATURE, REJUVENATING_STEPS, HEIGHTENED_SENSES, DURABLE_PROJECTILES);
+				Collections.addAll(tierTalents, INVIGORATING_MEAL, RESTORED_NATURE, ENERGY_SIPHON, HEIGHTENED_SENSES, DURABLE_PROJECTILES);
 				break;
 			case POTIONMASTER:
 				//TODO POTIONMASTER talents replace rej stepts
@@ -652,7 +660,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, POINT_BLANK, SEER_SHOT);
 				break;
 			case POTIONMASTER:
-				Collections.addAll(tierTalents,ENHANCED_RINGS,EMPOWERING_SCROLLS);
+				Collections.addAll(tierTalents,ENHANCED_RINGS,BULKING_POTIONS);
 		}
 		for (Talent talent : tierTalents){
 			if (replacements.containsKey(talent)){

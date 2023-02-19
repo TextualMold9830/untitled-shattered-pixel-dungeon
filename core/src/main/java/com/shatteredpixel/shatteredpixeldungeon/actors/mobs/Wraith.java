@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.CorpseDust;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.WraithSprite;
 import com.watabou.noosa.tweeners.AlphaTweener;
@@ -47,7 +48,8 @@ public class Wraith extends Mob {
 		maxLvl = -2;
 		
 		flying = true;
-
+		loot = new CorpseDust();
+		lootChance=0.03f;
 		properties.add(Property.UNDEAD);
 	}
 	

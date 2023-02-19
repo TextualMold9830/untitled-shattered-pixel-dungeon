@@ -36,7 +36,7 @@ public class Albino extends Rat {
 		HP = HT = 15;
 		EXP = 2;
 		
-		loot = new MysteryMeat();
+		loot = new MysteryMeat().quantity(Random.Int(1,2));
 		lootChance = 1f;
 	}
 	

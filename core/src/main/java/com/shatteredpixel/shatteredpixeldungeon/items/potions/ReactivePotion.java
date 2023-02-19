@@ -1,7 +1,10 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.potions;
 
+import static com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing.pharmacophobiaProc;
+
 import com.badlogic.gdx.Gdx;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -26,28 +29,33 @@ import java.util.ArrayList;
 public class ReactivePotion extends Potion {
     {
         image = ItemSpriteSheet.REACTIVE_POTION;
-        defaultAction = AC_CHOOSE;
+        defaultAction = AC_THROW;
 
     }
 
     @Override
     protected void drink(Hero hero) {
         super.drink(hero);
-        Buff.affect(hero, Healing.class).setHeal(Math.round( 5+hero.HT/10f), 0, 1);
-        if (Random.Int(1,100)==1){
-            try {
-                Dungeon.saveAll();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        if (Dungeon.isChallenged(Challenges.NO_HEALING)) {
+            pharmacophobiaProc(Dungeon.hero);
+        } else {
+            Buff.affect(hero, Healing.class).setHeal(Math.round(5 + hero.HT / 10f), 0, 1);
+            if (Random.Int(1, 100) == 1) {
+                try {
+                    Dungeon.saveAll();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                Gdx.net.openURI("https://www.youtube.com/watch?v=mx86-rTclzA");
             }
-            Gdx.net.openURI("https://www.youtube.com/watch?v=mx86-rTclzA");
         }
     }
-
     @Override
     public void shatter(int cell) {
         Char c = Actor.findChar(cell);
-        if (c != null && c.alignment == Char.Alignment.ALLY) {
+        if (c!=null&&c == Dungeon.hero && Dungeon.isChallenged(Challenges.NO_HEALING)){
+            pharmacophobiaProc(Dungeon.hero);
+        }else if (c != null && c.alignment == Char.Alignment.ALLY) {
             Buff.affect(c, Healing.class).setHeal(Math.round(5 + c.HT / 5f), 0, 1);
 
             return;

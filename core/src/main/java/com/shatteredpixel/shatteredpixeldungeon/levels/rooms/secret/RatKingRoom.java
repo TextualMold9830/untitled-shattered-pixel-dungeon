@@ -43,8 +43,8 @@ public class RatKingRoom extends SecretRoom {
 	//reduced max size to limit chest numbers.
 	// normally would gen with 8-28, this limits it to 8-16
 	@Override
-	public int maxHeight() { return 7; }
-	public int maxWidth() { return 7; }
+	public int maxHeight() { return 8; }
+	public int maxWidth() { return 8; }
 	
 	public void paint(Level level ) {
 

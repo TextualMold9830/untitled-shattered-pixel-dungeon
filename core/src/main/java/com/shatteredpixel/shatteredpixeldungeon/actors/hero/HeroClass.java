@@ -35,6 +35,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.S
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.ElementalBlast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WarpBeacon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.potionmaster.EnergyBlast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.DeathMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.SmokeBomb;
@@ -43,12 +44,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.He
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MastersToolkit;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfExperience;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
@@ -59,7 +62,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dagger;
@@ -87,9 +89,6 @@ public enum HeroClass {
 	}
 
 	public void initHero( Hero hero ) {
-		if (DeviceCompat.isDebug()){
-			new ScrollOfForesight().identify().collect();
-		}
 		if (Calendar.getInstance().get(Calendar.MONTH)==Calendar.FEBRUARY&& Calendar.getInstance().get(Calendar.DAY_OF_MONTH)==12) {
 			Buff.affect(hero, WeirdBuff.class, 300);}
 		new ReactivePotion().identify(true);
@@ -181,14 +180,20 @@ public enum HeroClass {
 		new PotionOfLiquidFlame().identify();
 	}
 	public static void initPotionMaster(Hero hero){
+		if (DeviceCompat.isDebug()){
+			new PotionOfExperience().quantity(15).identify().collect();
+			new TengusMask().collect();
+		}
 		(hero.belongings.weapon = new Gloves()).identify();
 		(hero.belongings.artifact = new MastersToolkit()).identify();
 		hero.belongings.artifact.activate( hero );
 		hero.belongings.artifact.isInBag=false;
-		new ReactivePotion().quantity(5).identify().collect();
+		Item potion= new ReactivePotion().quantity(5).identify();
+		potion.collect();
+		Dungeon.quickslot.setSlot(1,potion);
 		new PotionOfHealing().identify(true);
 		new PotionOfLiquidFlame().identify();
-		Dungeon.quickslot.setSlot(1, hero.belongings.artifact);
+		Dungeon.quickslot.setSlot(0, hero.belongings.artifact);
 
 
 	}
@@ -249,7 +254,7 @@ public enum HeroClass {
 			case HUNTRESS:
 				return new ArmorAbility[]{new SpectralBlades(), new NaturesPower(), new SpiritHawk()};
 			case POTIONMASTER:
-				return new ArmorAbility[]{new Endure(), new WarpBeacon(), new ShadowClone(), new SpectralBlades()};
+				return new ArmorAbility[]{new EnergyBlast(), new WarpBeacon(), new ShadowClone(), new SpectralBlades()};
 		}
 	}
 
